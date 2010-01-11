@@ -4,7 +4,6 @@
  * http://github.com/gjritter/nerve
  *
  * For example, run the server and visit:
- * http://127.0.0.1:8009/hello/Chad
  * http://127.0.0.1:8009/hi/Bob
  */
 
