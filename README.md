@@ -26,26 +26,7 @@ Templates can also contain javascript code to be expanded.
 
 ## Usage
 
-    template.tmpl(str, data)
-       Parameters:
-          str  - filename of template to load
-          data - object containing data to replace in the template
-       Returns:
-          String of the template file with all code/variables replaced with data object contents
-       Example:
-          var foo = template.tmpl("./hello.template", {name:"Chad"});
-          sys.puts(foo);
-
-
-    template.tmpl(str)
-       Parameters:
-          str - filename of template to load
-       Returns:
-          Pre-compiled/generated function to which you can pass a data object
-       Example:
-          var bar = template.tmpl("./hello.template");
-          var baz = bar({name:"Bob"});
-          sys.puts(baz);
+To be updated soon.
 
 ## Other Info
 
