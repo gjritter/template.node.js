@@ -1,31 +1,24 @@
+(function() {
+	var sys = require('sys'),
+		test = require('mjsunit'),
+		template = require('./template');
 
-var sys = require("sys"),
-    template = require("./template");
+	var myobj = {obj : {num: 5, person:'Jack'}};
+	var myobj2 = {obj : {num: 10, person:'Jill'}};
 
-/* create some data objects */
-var myobj = {obj : {num: 5, person:"Jack"}};
-var myobj2 = {obj : {num: 10, person:"Jill"}};
+	var template_value = template.tmpl('./tmpls/t1.template', myobj);
+	test.assertEquals('5 apples for Jack ', template_value);
 
-/* put the templated data in a string and puts it */
-var stuff = template.tmpl("./tmpls/t1.template", myobj);
-sys.puts(stuff);
+	var name = 'chad';
+	template_value = template.tmpl('./tmpls/t2.template', {name:name});
+	test.assertEquals('chad', template_value);
 
-/* puts the formatted data directly */
-sys.puts(template.tmpl("./tmpls/t1.template", myobj2));
+	template_value = template.tmpl('./tmpls/t2.template', {name:'Bob'});
+	test.assertEquals('Bob', template_value);
 
-/* assign a variable and use it in a template data object */
-var name = "chad";
-sys.puts(template.tmpl("./tmpls/t2.template", {name:name}));
+	var f = template.tmpl('./tmpls/t2.template');
+	test.assertEquals('alice', f({name:'alice'}));
 
-/* use a string literal in the template data object */
-sys.puts(template.tmpl("./tmpls/t2.template", {name:"Bob"}));
-
-/* create a template generator function using the tmpl currying */
-var f = template.tmpl("./tmpls/t2.template");
-/* run the generator against a data object */
-sys.puts(f({name:"alice"}));
-
-/* yet another example */
-var data = {users: [{name:"Chad", age:25}, {name:"Bob", age:40}]};
-sys.print(template.tmpl("./tmpls/t3.template", data));
-
+	var data = {users: [{name:'Chad', age:25}, {name:'Bob', age:40}]};
+	test.assertEquals('Chad is 25 years old.\nBob is 40 years old.\n', template.tmpl('./tmpls/t3.template', data));
+}());
