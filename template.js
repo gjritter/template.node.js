@@ -9,13 +9,14 @@
  */
 
 
-var posix = require("posix");
+var fs = require("fs");
 
 var cache = {};
   
 var create = function(file_name, callback) {
-	posix.cat(file_name).addCallback(function(file_contents) {
-	    callback(new Function("obj",
+	fs.readFile(file_name, function(err, file_contents) {
+	    if(!err) {
+		callback(new Function("obj",
 			 "var p=[],print=function(){p.push.apply(p,arguments);};" +
 
 			 // Introduce the data as local variables using with(){}
@@ -31,8 +32,7 @@ var create = function(file_name, callback) {
 	                 .split("%>").join("p.push('")
 	                 .split("\r").join("\\'")
 	                 + "');}return p.join('');"));
-	}).addErrback(function(e) {
-		// do something to handle the error
+	    }
 	});
 }
 
